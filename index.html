@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3D Contact Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wish</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-        body, html {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        body, html {
             height: 100%;
             font-family: Arial, sans-serif;
             background-color: #121212;
             color: #ffffff;
             overflow: hidden;
+            touch-action: manipulation;
         }
         #contact-container {
             position: absolute;
@@ -21,25 +26,41 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
-            background: rgba(0,0,0,0.7);
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
         }
-        input, button {
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        input {
             width: 100%;
             margin: 10px 0;
-            padding: 10px;
+            padding: 12px;
             background: #1e1e1e;
             border: 1px solid #333;
             color: white;
+            border-radius: 8px;
+            font-size: 16px; /* Prevent auto-zoom on mobile */
         }
         button {
+            width: 100%;
+            padding: 12px;
+            background: #2c3e50;
+            border: none;
+            color: white;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
             transition: background 0.3s;
         }
         button:hover {
-            background: #333;
+            background: #34495e;
         }
         #threejs-background {
             position: fixed;
@@ -49,17 +70,29 @@
             height: 100%;
             z-index: 1;
         }
+        @media (max-width: 400px) {
+            #contact-container {
+                width: 95%;
+                padding: 15px;
+            }
+            input, button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="threejs-background"></div>
     <div id="contact-container">
-        <h2>Contact Me</h2>
+        <h2>Give us the detail</h2>
+         <h1>Your Wish will be Granted !!!</h1>
+        
         <form id="contact-form">
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="email" id="email" placeholder="Your Email" required>
-            <input type="tel" id="phone" placeholder="Your Phone Number">
-            <input type="text" id="wish" placeholder="Your Wish">
+            <input type="text" id="name" placeholder="Your Name" required autocomplete="off">
+            <input type="email" id="email" placeholder="Your Email" required autocomplete="off">
+            <input type="tel" id="phone" placeholder="Your Phone Number" autocomplete="off">
+            <input type="text" id="wish" placeholder="Your Wish" autocomplete="off">
             <button type="submit">Send Wish</button>
         </form>
     </div>
@@ -127,7 +160,7 @@
             const wish = document.getElementById('wish').value;
 
             // Google Apps Script Web App URL (you'll replace this)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwn9jqpOd3FEUkdURw75x49iQOjBU2jPcivWzy9ThBxQcUP4BrrTacTTg8fBBs-Eh0AeA/exec';
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
 
             fetch(scriptURL, {
                 method: 'POST',
